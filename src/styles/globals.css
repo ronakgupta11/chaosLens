@@ -1,0 +1,371 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   GLOBAL RESET & BASE STYLES
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   CANVAS DOT GRID
+   ============================================================ */
+
+.canvas-dot-grid {
+  background-image: radial-gradient(circle, #1f1f1f 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ============================================================
+   REACT FLOW OVERRIDES
+   ============================================================ */
+
+.react-flow__renderer {
+  background: transparent !important;
+}
+
+.react-flow__node {
+  cursor: pointer;
+}
+
+.react-flow__node.selected > * {
+  outline: none !important;
+}
+
+.react-flow__handle {
+  width: 8px !important;
+  height: 8px !important;
+  background: #3b82f6 !important;
+  border: 1px solid #1d4ed8 !important;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.react-flow__node:hover .react-flow__handle {
+  opacity: 1;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* Mini map */
+.react-flow__minimap {
+  border-radius: 6px !important;
+  border: 1px solid #2a2a2a !important;
+  overflow: hidden;
+}
+
+/* Controls */
+.react-flow__controls {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.react-flow__controls-button {
+  background: #1a1a1a !important;
+  border: 1px solid #2a2a2a !important;
+  border-bottom: none !important;
+  fill: #888 !important;
+  color: #888 !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: 1px solid #2a2a2a !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #222 !important;
+  fill: #f0f0f0 !important;
+}
+
+/* Selection */
+.react-flow__selection {
+  background: rgba(59, 130, 246, 0.08) !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+/* ============================================================
+   CUSTOM KEYFRAMES
+   ============================================================ */
+
+@keyframes nodeShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes pulseGlowRed {
+  0%, 100% { box-shadow: 0 0 8px #ef444440; }
+  50% { box-shadow: 0 0 20px #ef444480; }
+}
+
+@keyframes pulseGlowAmber {
+  0%, 100% { box-shadow: 0 0 6px #f59e0b30; }
+  50% { box-shadow: 0 0 14px #f59e0b60; }
+}
+
+@keyframes pulseGlowPurple {
+  0%, 100% { box-shadow: 0 0 6px #a855f730; }
+  50% { box-shadow: 0 0 16px #a855f760; }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+@keyframes particleFlow {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.label-uppercase {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.scrollbar-dark {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a #111111;
+}
+
+.scrollbar-dark::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 2px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+/* ============================================================
+   NODE STATE ANIMATIONS
+   ============================================================ */
+
+.node-failed {
+  animation: nodeShake 0.5s ease-in-out, pulseGlowRed 2s ease-in-out 0.5s infinite;
+}
+
+.node-degraded {
+  animation: pulseGlowAmber 2s ease-in-out infinite;
+}
+
+.node-blast-radius {
+  animation: pulseGlowPurple 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   TRAFFIC PARTICLES
+   ============================================================ */
+
+.traffic-particle {
+  stroke-dasharray: 4 20;
+  stroke-linecap: round;
+  animation: particleFlow linear infinite;
+}
+
+/* ============================================================
+   PANEL TRANSITIONS
+   ============================================================ */
+
+.panel-slide-in {
+  animation: slideInRight 0.25s ease-out;
+}
+
+/* ============================================================
+   TOAST ANIMATION
+   ============================================================ */
+
+.toast-enter {
+  animation: fadeInUp 0.25s ease-out;
+}
+
+.toast-progress {
+  animation: toastProgress 5s linear forwards;
+}
+
+/* ============================================================
+   TERMINAL LOG STYLES
+   ============================================================ */
+
+.terminal-line {
+  animation: fadeInUp 0.2s ease-out;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   SPARKLINE SVG
+   ============================================================ */
+
+.sparkline-path {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================================
+   CONTEXT MENU
+   ============================================================ */
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #d0d0d0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.1s ease;
+  white-space: nowrap;
+}
+
+.context-menu-item:hover {
+  background: #222222;
+  color: #f0f0f0;
+}
+
+.context-menu-item.danger:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* ============================================================
+   SLIDER CUSTOM STYLE
+   ============================================================ */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: #2a2a2a;
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: none;
+}
+
+input[type="range"]:disabled {
+  opacity: 0.35;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   PILL TOGGLE
+   ============================================================ */
+
+.pill-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #2a2a2a;
+  background: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.pill-toggle.active {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: #f59e0b;
+  color: #f59e0b;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
